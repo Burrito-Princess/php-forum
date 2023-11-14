@@ -13,7 +13,7 @@
   </head>
   <body class="d-flex align-items-center py-4 bg-body-tertiary">
     <main class="form-signin w-25 m-auto">
-      <form>
+      <form action="" method="post">
         <h1 class="h3 mb-3 fw-normal">Please sign in</h1>
 
         <div class="form-floating">
@@ -22,23 +22,45 @@
             class="form-control"
             id="floatingInput"
             placeholder="name@example.com"
+            maxlength="255"
+            name="email"
           />
           <label for="floatingInput">Email address</label>
         </div>
         <div class="form-floating">
           <input
-            type="password"
+            
             class="form-control"
             id="floatingPassword"
             placeholder="Password"
+            maxlength="32"
+            name="password"
           />
           <label for="floatingPassword">Password</label>
         </div>
-
-        <button class="btn btn-primary w-100 py-2" type="submit">
+        <button class="btn btn-primary w-100 py-2" name="submit" type="submit">
           Sign in
         </button>
       </form>
+      <?php
+      include_once "connect.php";
+      if (isset($_POST["submit"])) {
+        $email = $_POST["email"];
+        $stmt = $conn->prepare("SELECT * FROM users WHERE email = '$email'");
+        $stmt->execute();
+        $user = $stmt->fetch();
+        $password = password_verify($_POST["password"], $user["password"]);
+        if ($user["password"] == $password) {
+          session_start();
+          echo "success!";
+          $_SESSION["logged"] = true;
+          $_SESSION["email"] = $user["email"];
+          header("Location:home.php?page=0&search=");
+        } else {
+          echo "wrong password";
+        }
+      }
+      ?>
     </main>
     <script
       src="/docs/5.3/dist/js/bootstrap.bundle.min.js"
@@ -47,3 +69,6 @@
     ></script>
   </body>
 </html>
+
+
+

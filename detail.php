@@ -35,14 +35,15 @@
                 echo "</h2><div>";
                 echo $project["discription_long"];
                 echo "</div><div>";
-                echo "type: ".$project["type"];
+                echo "<strong>type: </strong>".$project["type"];
                 echo "</div><div>";
+                echo "<strong>Languages: </strong><br>";
                 $arr  = json_decode($project["class"], true);
                 for ($x = 0; $x < count($arr["languages"]); $x++){
-                  echo ($arr["languages"][$x]) . "<br>";
+                  echo "- " . ($arr["languages"][$x]) . "<br>";
                 }
-                echo $project["timeframe"];
-              }
+                echo "<strong>made in: </strong>" . $project["timeframe"];
+              } 
               ?>
             </div>
           </div>
