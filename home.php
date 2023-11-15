@@ -34,11 +34,23 @@
       <a href="login.php">login</a>
       <br>
       <a href="signup.php">sign up</a>
+      <form action="home.php?page=0&search=" method="post">
+        <button name="logout" type="submit">logout</button>
+      </form>
+      <form action="add.php" method="post">
+        <button name="add">Add an item</button>
+      </form>
+      
       <?php
       session_start();
-      if (isset($_SESSION["logged"])){
+      if (isset($_SESSION["email"])){
         echo "logged in as: " . $_SESSION["email"] . "<br>";
       }
+        if (isset($_POST["logout"])){
+          session_destroy();
+          $_POST["logout"] = null;
+          header("Location:home.php?page=0&search=");
+        }
       ?>
       <div class="container">
         <div class="d-flex justify-content-center align-items-center m-4">
@@ -70,15 +82,26 @@
                 <button type="button" class="btn btn-sm btn-outline-secondary">
                   Edit
                 </button>
-                <button type="button" class="btn btn-sm btn-outline-secondary">
-                  Deletes
-                </button>
+                <form action="" method="post">
+                  <button name="delete" type="submit" class="btn btn-sm btn-outline-secondary">
+                    Delete
+                  </button>
+                </form>
               </div>
             </div>
           </div>
           <?php 
             echo "</div>";
               }
+            if (isset($_POST["delete"])){
+              if (!isset($_SESSION["logged"])){
+                header("Location:login.php");
+              } else {
+              $stmt = $conn->prepare("DELETE FROM projects WHERE id = " . $project["id"]);
+              $stmt->execute();
+              header("Location:home.php?page=0&search=");
+              }
+            }
           ?>
           
         

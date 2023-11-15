@@ -13,9 +13,9 @@
   </head>
   <body class="d-flex align-items-center py-4 bg-body-tertiary">
     <main class="form-signin w-25 m-auto">
+      <a href="home.php?page=0&search=">Home</a>
       <form action="" method="post">
         <h1 class="h3 mb-3 fw-normal">Please sign in</h1>
-
         <div class="form-floating">
           <input
             type="email"
@@ -24,6 +24,7 @@
             placeholder="name@example.com"
             maxlength="255"
             name="email"
+            required
           />
           <label for="floatingInput">Email address</label>
         </div>
@@ -35,6 +36,7 @@
             placeholder="Password"
             maxlength="32"
             name="password"
+            required
           />
           <label for="floatingPassword">Password</label>
         </div>
@@ -60,6 +62,7 @@
           echo "wrong password";
         }
       }
+
       ?>
     </main>
     <script

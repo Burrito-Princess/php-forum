@@ -39,8 +39,8 @@
                 echo "</div><div>";
                 echo "<strong>Languages: </strong><br>";
                 $arr  = json_decode($project["class"], true);
-                for ($x = 0; $x < count($arr["languages"]); $x++){
-                  echo "- " . ($arr["languages"][$x]) . "<br>";
+                for ($x = 0; $x < count($arr); $x++){
+                  echo "- " . ($arr[$x]) . "<br>";
                 }
                 echo "<strong>made in: </strong>" . $project["timeframe"];
               } 
@@ -57,3 +57,6 @@
     ></script>
   </body>
 </html>
+
+<!-- //////////////////////////////
+//{"languages": ["js", "php"]} -->
